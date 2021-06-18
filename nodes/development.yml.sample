@@ -1,0 +1,53 @@
+environment: development
+
+# [ubuntu, ol8]
+distro: ubuntu
+
+# linux user
+user_name: admin
+group_name: admin
+
+# git config global
+git_name: admin
+git_email: admin@example.com
+
+# shellロール実行時に設定されるログインシェル
+# [zsh, fish]
+login_shell: zsh
+
+# [base, update, shell, ruby]
+roles:
+  # - base
+  # - shell
+  # - ruby
+  # - python
+  # - nodejs
+
+# Apps installed by the base role
+install_apps:
+  - vim
+  - sudo
+  - less
+  - tree
+  # - rename
+  - htop
+  # - fd-find
+  - tldr
+  - ncdu
+  - zip
+  - unzip
+  - bzip2
+  - tar
+  - sed
+  - jq
+  - wget
+  - curl
+  - gcc
+  - make
+  - git
+  - tmux
+install_apps_4_ubuntu:
+  - g++
+install_apps_4_ol8:
+  - oracle-epel-release-el8
+  - gcc-c++

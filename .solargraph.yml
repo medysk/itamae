@@ -1,0 +1,17 @@
+include:
+  - '**/*.rb'
+exclude:
+  - vendor/**/*
+  - '.bundle/**/*'
+reporters:
+  - rubocop
+require:
+  - actioncable
+  - actionmailer
+  - actionpack
+  - actionview
+  - activejob
+  - activemodel
+  - activerecord
+  - activestorage
+  - activesupport
