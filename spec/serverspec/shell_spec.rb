@@ -15,7 +15,7 @@ when 'zsh'
   describe user(node['user_name']) do
     it { should have_login_shell /.*zsh$/ } # rubocop:disable Lint/AmbiguousRegexpLiteral
   end
-when  'fish'
+when 'fish'
   describe user(node['user_name']) do
     it { should have_login_shell /.*fish$/ } # rubocop:disable Lint/AmbiguousRegexpLiteral
   end
