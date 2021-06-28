@@ -21,8 +21,8 @@ ol8_packages = %w[
 packages = ubuntu_packages if node['distro'] == 'ubuntu'
 packages = ol8_packages    if node['distro'] == 'ol8'
 
-packages.each do |package|
-  package package do
+packages.each do |pkg|
+  package pkg do
     action :install
   end
 end
