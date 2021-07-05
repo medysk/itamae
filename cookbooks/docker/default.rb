@@ -36,23 +36,12 @@ def install_docker
     command "usermod -aG docker #{node['user_name']}"
   end
 end
-
-def mount_systemd_4_wsl2
-  execute 'Working for WSL2' do
-    only_if 'uname -r | grep -q "microsoft"'
-    command <<~SH
-      mkdir -p /sys/fs/cgroup/systemd
-      mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
-    SH
-  end
-end
 # ==========================
 
 case node['distro']
 when 'ubuntu'
   prepar_4_installation_via_https
   install_docker
-  mount_systemd_4_wsl2
 when 'ol8'
   execute 'add docker repo' do
     not_if 'dnf repolist | grep docker-ce-stable'
@@ -68,6 +57,8 @@ when 'ol8'
 end
 
 service 'docker' do
+  # WSL2の場合はサービスを起動しない。サービス起動は手動または別の方法で行う
+  not_if 'uname -r | grep -q "microsoft"'
   action %i[enable restart]
 end
 
