@@ -21,8 +21,6 @@ GEM
       schash (~> 0.1.0)
       specinfra (>= 2.64.0, < 3.0.0)
       thor
-    itamae-secrets (0.2.3)
-      thor
     method_source (1.0.0)
     minitest (5.14.4)
     multi_json (1.15.0)
@@ -77,10 +75,9 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   itamae
-  itamae-secrets
   pry-byebug
   rake
   serverspec
 
 BUNDLED WITH
-   2.2.17
+   2.2.19
