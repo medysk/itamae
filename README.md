@@ -14,12 +14,12 @@ itamaeをリモートで実行
 デバッグオプション  
 `-l debug`  
 
-レシピ追加
-`bundle exec itamae g cookbook {name}`
+レシピ追加  
+`bundle exec itamae g cookbook {name}`  
 
-テスト
-`bundle exec rake ITAMAE_ENV={env} SSH_CONFIG={ssh_config_path} TARGET_HOST={host}`
-ローカルテスト
-`bundle exec rake ITAMAE_ENV=production`
-リモートテスト(sshコンフィグファイルがある前提)
-`bundle exec rake ITAMAE_ENV=production SSH_CONFIG=~/.ssh/config TARGET_HOST=example.com`
+テスト  
+`bundle exec rake ITAMAE_ENV={env} SSH_CONFIG={ssh_config_path} TARGET_HOST={host}`  
+ローカルテスト  l
+`bundle exec rake ITAMAE_ENV=production`  
+リモートテスト(sshコンフィグファイルがある前提)  
+`bundle exec rake ITAMAE_ENV=production SSH_CONFIG=~/.ssh/config TARGET_HOST=example.com`  
