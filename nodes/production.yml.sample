@@ -47,6 +47,7 @@ install_apps:
   - make
   - git
   - tmux
+  - awscli
 install_apps_4_ubuntu:
   - g++
 install_apps_4_ol8:
