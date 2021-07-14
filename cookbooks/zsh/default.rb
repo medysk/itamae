@@ -11,9 +11,11 @@ if node['login_shell'] == 'zsh'
   end
 end
 
+home_dir = "/home/#{node['user_name']}"
+
 execute 'install zprezto' do
   user node['user_name']
-  not_if 'test -d $HOME/.zprezto'
+  not_if "test -d #{home_dir}/.zprezto"
   command <<~SH
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 

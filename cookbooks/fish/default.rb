@@ -11,21 +11,23 @@ if node['login_shell'] == 'fish'
   end
 end
 
-directory '$HOME/.config/fish/' do
+home_dir = "/home/#{node['user_name']}"
+
+directory "#{home_dir}/.config/fish/" do
   mode '755'
   owner node['user_name']
   group node['group_name']
 end
 
-file '$HOME/.config/fish/config.fish' do
-  not_if 'test -f $HOME/.config/fish/config.fish'
+file "#{home_dir}/.config/fish/config.fish" do
+  not_if "test -f $#{home_dir}/.config/fish/config.fish"
   owner node['user_name']
   group node['group_name']
 end
 
 execute 'install fisher' do
   user node['user_name']
-  not_if 'test -d $HOME/.config/fish'
+  not_if "test -d #{home_dir}/.config/fish"
   command 'curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish' # rubocop:disable Layout/LineLength
 end
 
@@ -40,7 +42,7 @@ end
 ].each do |cmd|
   execute "write #{cmd}" do
     user node['user_name']
-    not_if "grep -q '#{cmd}' $HOME/.config/fish/config.fish"
-    command "echo '#{cmd}' >> $HOME/.config/fish/config.fish"
+    not_if "grep -q '#{cmd}' #{home_dir}/.config/fish/config.fish"
+    command "echo '#{cmd}' >> #{home_dir}/.config/fish/config.fish"
   end
 end
