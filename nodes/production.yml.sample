@@ -15,14 +15,16 @@ git_email: admin@example.com
 # [zsh, fish]
 login_shell: zsh
 
-# [base, update, shell, ruby]
+# [base, update, shell, ruby, python, nodejs, docker, google_cloud_sdk]
 roles:
   # - base
+  # - update
   # - shell
   # - ruby
   # - python
   # - nodejs
   # - docker
+  # - google_cloud_sdk
 
 # Apps installed by the base role
 install_apps:
