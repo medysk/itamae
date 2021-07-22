@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-include_recipes(:update_package_manager, :anyenv, :rbenv)
+include_recipes(:asdf, :ruby)

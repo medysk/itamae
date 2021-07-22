@@ -13,6 +13,10 @@ def node
   @node = Itamae::Node.new(hash, Specinfra.backend)
 end
 
+def user_command(cmd)
+  command "su -l #{node['user_name']} -c '#{cmd}'"
+end
+
 if ENV['TARGET_HOST'] == 'localhost'
   set :backend, :exec
 else

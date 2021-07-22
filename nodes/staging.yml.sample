@@ -15,7 +15,6 @@ git_email: admin@example.com
 # [zsh, fish]
 login_shell: zsh
 
-# [base, update, shell, ruby]
 roles:
   # - base
   # - shell
@@ -26,6 +25,7 @@ roles:
 
 # Apps installed by the base role
 install_apps:
+  - awk
   - vim
   - sudo
   - less
@@ -49,7 +49,13 @@ install_apps:
   - tmux
   - awscli
 install_apps_4_ubuntu:
+  - libssl-dev
+  - libreadline-dev
+  - zlib1g-dev
   - g++
 install_apps_4_ol8:
+  - openssl-devel
+  - readline-devel
+  - zlib-devel
   - oracle-epel-release-el8
   - gcc-c++

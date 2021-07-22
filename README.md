@@ -7,7 +7,7 @@ nodesのyml.sampleファイルを編集しsampleを外してyamlを準備する
 `bundle install`  
 
 itamaeをローカルで実行  
-`sudo bundle exec itamae local -y nodes/development.yml cook.rb`  
+`sudo -E bundle exec itamae local -y nodes/development.yml cook.rb`  
 itamaeをリモートで実行  
 `bundle exec itamae ssh -y nodes/development.yml -h {host} -p {ssh_port} -u {user} -i {key} cook.rb`  
 
@@ -19,7 +19,7 @@ itamaeをリモートで実行
 
 テスト  
 `bundle exec rake ITAMAE_ENV={env} SSH_CONFIG={ssh_config_path} TARGET_HOST={host}`  
-ローカルテスト  l
-`bundle exec rake ITAMAE_ENV=production`  
+ローカルテスト  
+`sudo -E bundle exec rake ITAMAE_ENV=production`  
 リモートテスト(sshコンフィグファイルがある前提)  
 `bundle exec rake ITAMAE_ENV=production SSH_CONFIG=~/.ssh/config TARGET_HOST=example.com`  
