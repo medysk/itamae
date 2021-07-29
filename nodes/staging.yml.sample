@@ -17,6 +17,7 @@ login_shell: zsh
 
 roles:
   # - base
+  # - update
   # - shell
   # - ruby
   # - python
