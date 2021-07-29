@@ -2,12 +2,14 @@
 
 require 'spec_helper'
 
-home = "/home/#{node['user_name']}"
-
-describe command("#{home}/.anyenv/bin/anyenv -v") do
+describe user_command('source ~/.zshrc && asdf --version') do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("#{home}/.anyenv/envs/nodenv/bin/nodenv -v") do
+describe user_command('source ~/.zshrc && asdf plugin list | grep -q nodejs') do
+  its(:exit_status) { should eq 0 }
+end
+
+describe user_command('source ~/.zshrc && asdf list nodejs | grep -q 16.4.') do
   its(:exit_status) { should eq 0 }
 end

@@ -18,6 +18,7 @@ execute 'install zprezto' do
   not_if "test -d #{home_dir}/.zprezto"
   command <<~SH
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    chmod -R 755 ~/.zprezto/modules
 
     zsh -c 'setopt EXTENDED_GLOB
     for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
