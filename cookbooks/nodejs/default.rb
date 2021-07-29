@@ -12,7 +12,7 @@ end
 max_ver_sh = [
   'asdf list all nodejs',
   %(grep -P '^16.4.'),
-  %(awk '{if(m<\\$1) m=\\$1} END{print m}'),
+  %(awk 'END{print}'),
 ].join(' | ')
 
 execute 'install' do

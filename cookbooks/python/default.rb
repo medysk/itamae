@@ -12,7 +12,7 @@ end
 max_ver_sh = [
   'asdf list all python',
   %(grep -P '^3.9.'),
-  %(awk '{if(m<\\$1) m=\\$1} END{print m}'),
+  %(awk 'END{print}'),
 ].join(' | ')
 
 execute 'install' do

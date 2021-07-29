@@ -1,41 +1,64 @@
 # frozen_string_literal: true
 
-case node['distro']
-when 'ubuntu'
-  %w[apt-transport-https ca-certificates gnupg].each do |pkg|
-    package pkg do
-      action :install
-    end
-  end
+require 'securerandom'
 
-  execute 'Cloud SDK の配布 URI をパッケージ ソースとして追加' do
-    not_if 'test -f /etc/apt/sources.list.d/google-cloud-sdk.list'
-    command 'echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list' # rubocop:disable Layout/LineLength
-  end
+zsh_wrapper = proc { |cmd| %(zsh -lc "source ~/.zshrc && #{cmd}") }
 
-  execute 'Google Cloud の公開鍵をインポート' do
-    command 'curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -' # rubocop:disable Layout/LineLength
-  end
+execute 'add plugin' do
+  user node['user_name']
+  not_if  zsh_wrapper['asdf plugin list | grep -q "gcloud"']
+  command zsh_wrapper['asdf plugin-add gcloud']
+end
 
-  execute 'apt update'
-when 'ol8'
-  execute 'Cloud SDK リポジトリ情報で DNF を更新' do
-    not_if 'test -f /etc/yum.repos.d/google-cloud-sdk.repo'
-    command <<~SH
-      sudo tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
-      [google-cloud-sdk]
-      name=Google Cloud SDK
-      baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
-      enabled=1
-      gpgcheck=1
-      repo_gpgcheck=0
-      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-      EOM
-    SH
+# 最新バージョンをインストール
+execute 'install' do
+  user node['user_name']
+  not_if zsh_wrapper['which gcloud']
+  command zsh_wrapper['asdf install gcloud latest']
+end
+
+execute 'set global version' do
+  user node['user_name']
+  not_if zsh_wrapper['asdf current gcloud']
+  command zsh_wrapper['asdf global gcloud latest']
+end
+
+cur_ver_sh = "asdf current gcloud | awk '\\''{print $2}'\\''"
+
+[
+  "source ~/.asdf/installs/gcloud/$(#{cur_ver_sh})/path.zsh.inc",
+  "source ~/.asdf/installs/gcloud/$(#{cur_ver_sh})/completion.zsh.inc",
+].each do |cmd|
+  execute 'write zsh config' do
+    user node['user_name']
+    only_if	'[ -f ~/.zshrc ]'
+    not_if "grep -q '#{cmd[%r{(?!.*/).*}]}' ~/.zshrc"
+    command %(echo '#{cmd}' >>  ~/.zshrc)
   end
 end
 
-package 'google-cloud-sdk' do
-  action :install
+cmd = "source ~/.asdf/installs/gcloud/(#{cur_ver_sh})/path.fish.inc"
+
+execute 'write fish config' do
+  user node['user_name']
+  only_if	'[ -f ~/.config/fish/config.fish ]'
+  not_if "grep -q '#{cmd[%r{(?!.*/).*}]}' ~/.config/fish/config.fish"
+  command %(echo '#{cmd}' >>  ~/.config/fish/config.fish)
 end
+
+work_dir = "/home/#{node['user_name']}/tmp/itamae_tmp_#{SecureRandom.uuid}"
+
+git work_dir do
+  user node['user_name']
+  not_if "[ -f /home/#{node['user_name']}/.config/fish/completions/gcloud.fish"
+  repository 'https://github.com/lgathy/google-cloud-sdk-fish-completion.git'
+end
+
+execute 'Install fish completion' do
+  user node['user_name']
+  cwd work_dir
+  not_if "[ -f /home/#{node['user_name']}/.config/fish/completions/gcloud.fish"
+  command "#{work_dir}/install.sh"
+end
+
+execute "rm -fr #{work_dir}"

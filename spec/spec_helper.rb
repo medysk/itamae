@@ -14,7 +14,7 @@ def node
 end
 
 def user_command(cmd)
-  command "su -l #{node['user_name']} -c '#{cmd}'"
+  command "sudo su -l #{node['user_name']} -c zsh -lc '#{cmd}'"
 end
 
 if ENV['TARGET_HOST'] == 'localhost'
