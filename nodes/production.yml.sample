@@ -23,6 +23,7 @@ roles:
   # - python
   # - nodejs
   # - docker
+  # - k8s
   # - aws
   # - gcp
 

@@ -13,7 +13,7 @@ end
 # 最新バージョンをインストール
 execute 'install' do
   user node['user_name']
-  not_if zsh_wrapper['which gcloud']
+  not_if zsh_wrapper['gcloud --version']
   command zsh_wrapper['asdf install gcloud latest']
 end
 

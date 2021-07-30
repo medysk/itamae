@@ -38,6 +38,7 @@ directory "#{home_dir}/.config/fish/completions" do
 end
 
 link "#{home_dir}/.config/fish/completions/asdf.fish" do
+  not_if "[ -f #{home_dir}/.asdf/completions/asdf.fish ]"
   to "#{home_dir}/.asdf/completions/asdf.fish"
 end
 
