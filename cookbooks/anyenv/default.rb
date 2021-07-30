@@ -62,7 +62,8 @@ end
 execute 'write fish config' do
   user node['user_name']
   only_if	'[ -f ~/.config/fish/config.fish ]'
-  not_if "grep -q 'anyenv' ~/.config/fish/config.fish" # anyenvが記述されていれば既に設定済みとみなす
+  # anyenvが記述されていれば既に設定済みとみなす
+  not_if "grep -q 'anyenv' ~/.config/fish/config.fish"
   command <<~SH
     echo 'set -x PATH $HOME/.anyenv/bin $PATH' >> ~/.config/fish/config.fish
     echo 'eval (anyenv init - | source)' >> ~/.config/fish/config.fish
