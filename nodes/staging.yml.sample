@@ -15,7 +15,6 @@ git_email: admin@example.com
 # [zsh, fish]
 login_shell: zsh
 
-# [base, update, shell, ruby, python, nodejs, docker, google_cloud_sdk]
 roles:
   # - base
   # - update
@@ -24,7 +23,9 @@ roles:
   # - python
   # - nodejs
   # - docker
-  # - google_cloud_sdk
+  # - k8s
+  # - aws
+  # - gcp
 
 # Apps installed by the base role
 install_apps:
@@ -51,7 +52,17 @@ install_apps:
   - tmux
   - awscli
 install_apps_4_ubuntu:
+  - libsqlite3-dev
+  - libffi-dev
+  - libssl-dev
+  - libreadline-dev
+  - zlib1g-dev
   - g++
 install_apps_4_ol8:
+  - sqlite-devel
+  - libffi-devel
+  - openssl-devel
+  - readline-devel
+  - zlib-devel
   - oracle-epel-release-el8
   - gcc-c++
