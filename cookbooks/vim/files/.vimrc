@@ -14,7 +14,8 @@ set t_Co=256
 set nocompatible
 set hlsearch
 set number
-
+set tabstop=2
+set shiftwidth=2
 set hlsearch
 set incsearch
 set smartcase
