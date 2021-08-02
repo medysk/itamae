@@ -18,6 +18,10 @@ describe user_command('source ~/.zshrc && which amplify') do
   its(:exit_status) { should eq 0 }
 end
 
+describe user_command('source ~/.zshrc && which eksctl') do
+  its(:exit_status) { should eq 0 }
+end
+
 # describe user_command('source ~/.zshrc && which awslocal') do
 #   its(:exit_status) { should eq 0 }
 # end
