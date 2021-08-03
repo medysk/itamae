@@ -68,9 +68,14 @@ compose_uri = 'https://github.com/docker/compose/releases/download/1.29.2/docker
 compose_dir = '/usr/local/bin/docker-compose'
 
 execute 'install docker-compose' do
-  not_if "test -d  #{compose_dir}"
+  not_if '[ -f /usr/local/bin/docker-compose ]'
   command <<~SH
     curl -L #{compose_uri} -o #{compose_dir}
     chmod +x #{compose_dir}
   SH
+end
+
+execute 'docker-compose completion' do
+  not_if '[ -f /usr/local/share/zsh/site-functions/_docker-compose ]'
+  command %(curl -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/zsh/_docker-compose > /usr/local/share/zsh/site-functions/_docker-compose) # rubocop:disable Layout/LineLength
 end
