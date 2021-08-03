@@ -26,6 +26,7 @@ roles:
   # - k8s
   # - aws
   # - gcp
+  # - direnv
 
 # Apps installed by the base role
 install_apps:
