@@ -30,3 +30,5 @@
 !/secret/.keep
 /.ruby-version
 /nodes/*.yml
+/mariadb
+
