@@ -13,6 +13,14 @@ end
 
 home_dir = "/home/#{node['user_name']}"
 
+# '.config/fish'ディレクトリを再帰的に作成したいが、
+# recursiveオプションは無いようなので、一つづつ作成する
+directory "#{home_dir}/.config/" do
+  mode '755'
+  owner node['user_name']
+  group node['group_name']
+end
+
 directory "#{home_dir}/.config/fish/" do
   mode '755'
   owner node['user_name']
@@ -27,7 +35,7 @@ end
 
 execute 'install fisher' do
   user node['user_name']
-  not_if "test -d #{home_dir}/.config/fish"
+  not_if "test -f #{home_dir}/.config/fish/functions/fisher.fish"
   command 'curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish' # rubocop:disable Layout/LineLength
 end
 
