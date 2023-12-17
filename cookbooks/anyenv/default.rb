@@ -31,11 +31,13 @@ home_dir = "/home/#{node['user_name']}"
 
 git "#{home_dir}/.anyenv" do
   user node['user_name']
+  not_if "[ -d #{home_dir}/.anyenv ]"
   repository 'https://github.com/riywo/anyenv'
 end
 
 git "#{home_dir}/.anyenv/plugins/anyenv-update" do
   user node['user_name']
+  not_if "[ -d #{home_dir}/.asdf/plugins/anyenv-update ]"
   repository 'https://github.com/znz/anyenv-update.git'
 end
 
@@ -72,5 +74,6 @@ end
 
 git "#{home_dir}/.config/anyenv/anyenv-install" do
   user node['user_name']
+  not_if "[ -d #{home_dir}/.config/anyenv/anyenv-install ]"
   repository 'https://github.com/anyenv/anyenv-install'
 end

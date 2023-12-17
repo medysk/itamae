@@ -4,6 +4,7 @@ home_dir = "/home/#{node['user_name']}"
 
 git "#{home_dir}/.tmux/plugins/tpm" do
   user node['user_name']
+  not_if "[ -d #{home_dir}/.tmux/plugins/tpm ]"
   repository 'https://github.com/tmux-plugins/tpm'
 end
 

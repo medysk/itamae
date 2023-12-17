@@ -26,6 +26,7 @@ themes = {
 themes.each do |name, repo|
   git "#{home}/.vim/#{name}" do
     user node['user_name']
+    not_if "[ -d #{home}/.vim/#{name} ]"
     repository repo
   end
 end
