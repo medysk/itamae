@@ -27,6 +27,7 @@ roles:
   # - aws
   # - gcp
   # - direnv
+  # - task
 
 # Apps installed by the base role
 install_apps:

@@ -8,6 +8,12 @@ gem 'activesupport'
 gem 'bcrypt_pbkdf'
 gem 'ed25519'
 gem 'itamae'
-gem 'pry-byebug'
-gem 'rake'
-gem 'serverspec'
+
+group :development do
+  gem 'pry-byebug'
+  gem 'rake'
+  gem 'rubocop'
+  gem 'serverspec'
+  gem 'solargraph'
+  gem 'yard'
+end
