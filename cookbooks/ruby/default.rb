@@ -12,7 +12,7 @@ end
 max_ver_sh = [
   'asdf list all ruby',
   %(grep -P '^2.7.'),
-  %('awk 'END{print}'),
+  %(awk 'END{print}'),
 ].join(' | ')
 
 execute 'install' do

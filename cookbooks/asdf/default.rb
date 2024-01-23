@@ -4,6 +4,7 @@ home_dir = "/home/#{node['user_name']}"
 
 git "#{home_dir}/.asdf" do
   user node['user_name']
+  not_if "[ -d #{home_dir}/.asdf ]"
   repository 'https://github.com/asdf-vm/asdf.git'
 end
 
