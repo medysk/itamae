@@ -23,7 +23,7 @@ def install_docker
 
   execute 'add apt repository' do
     only_if 'apt-key fingerprint 0EBFCD88 | grep -q "9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88"' # rubocop:disable Layout/LineLength
-    command 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"' # rubocop:disable Layout/LineLength
+    command 'add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"' # rubocop:disable Layout/LineLength
   end
 
   execute 'apt update'
