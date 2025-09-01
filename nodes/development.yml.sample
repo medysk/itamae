@@ -60,6 +60,7 @@ install_apps_4_ubuntu:
   - libreadline-dev
   - zlib1g-dev
   - g++
+  - avahi-utils
 install_apps_4_ol8:
   - sqlite-devel
   - libffi-devel
